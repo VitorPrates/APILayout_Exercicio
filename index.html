@@ -3,32 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="./estilos.css">
+    <script src="funks.js" defer></script>
     <title>Atividade_Layout-15/05/2026</title>
 </head>
 <body>
     <header>
-        <h1>TEXTO</h1>
+        <h1>Kiphomy</h1>
         <nav>
-            <input type="text" value="INPUT">
-            <button>BTN</button>
+            <form id="pesquisador">
+                <input id="pesquisa" type="text" placeholder="pesquise aqui">
+                <button>Pesquisar</button>
+            </form>
         </nav>
     </header>
     <section>
-        <h1>TEXTO</h1>
+        <h1 id="nome_receita">TEXTO</h1>
     </section>
     <main>
         <div id="resultado_img">
-            <img src="" alt="IMG">
+            <img class="result_img" src="" alt="imagem da comida">
+            <div class="result_instrucoes">
+                <p>Instruções</p>
+                <ul>
+                
+                </ul>
+            </div>
+            <div class="result_ingredientes">
+                <p>Ingredientes</p>
+            </div>
         </div>
         <div id="resultado_infos">
-            <p>TEXTO</p>
-            <p>TEXTO</p>
-            <p>TEXTO</p>
-            <p>TEXTO</p>
+            <Span>Dificultade:</Span>
+            <p id="result_dificult">TEXTO</p>
+
+            <Span>Culinária:</Span>
+            <p id="result_culinaria">TEXTO</p>
+
+            <Span>Tempo de Preparação:</Span>
+            <p id="result_tempoprep">TEXTO</p>
+
+
+            <form action="" id="selecionar_leitura">
+                <input id="slct_img" type="radio" name="selecionar" value="img" checked>
+                <label for="img">Imagem</label>
+                <input id="slct_ins" type="radio" name="selecionar" value="ins">
+                <label for="ins">Instruções</label>
+                <input id="slct_ing" type="radio" name="selecionar" value="ing">
+                <label for="ing">Ingredientes</label>
+            </form>
+
             <div class="btns_result">
-                <button>BTN</button>
-                <button>BTN</button>
+                <button><</button>
+                <button>></button>
             </div>
         </div>
     </main>
