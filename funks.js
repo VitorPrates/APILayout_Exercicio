@@ -1,4 +1,3 @@
-// const url = await(await fetch(`https://pokeapi.co/api/v2/pokemon/charmander`)).json()
 
 const pesquisador = document.getElementById("pesquisador")
 const pesquisa = document.getElementById("pesquisa")
@@ -15,6 +14,8 @@ const slct_ing = document.querySelector(".result_ingredientes")
 slct_img.style.top = "0%"
 slct_ins.style.top = "100%"
 slct_ing.style.top = "100%"
+
+let receitas = []
 
 form_resultado_ver.addEventListener("change", (eve) =>{
     eve.preventDefault()
@@ -59,7 +60,8 @@ pesquisador.addEventListener('submit',(eve)=>{
 async function pesquisar_receita(pesquisa) {
     slct_ins.innerHTML = "<p>Instruções</p>"
     slct_ing.innerHTML = "<p>Ingredientes</p>"
-
+    let por_nome = false
+    let resultados = 0
     let url = ""
     if(!isNaN(pesquisa))
     {
@@ -67,27 +69,59 @@ async function pesquisar_receita(pesquisa) {
     }
     else
     {
-        
         url = await(await fetch(`https://dummyjson.com/recipes/search?q=${pesquisa}`)).json()
+        console.log(url);
+        resultados = url.total
+        url.recipes.forEach((rec,index) => {
+            receitas[index] = rec
+        })
+        por_nome = true
     }
-    
-    nome_receita.innerHTML = url.name
-    resultado_dificudade.innerHTML = url.difficulty
-    resultado_culinaria.innerHTML = url.cuisine
-    resultado_tempoprep.innerHTML = `${url.prepTimeMinutes}m`
-    slct_img.src = url.image
+    if(por_nome == false)
+    {
+        nome_receita.innerHTML = url.name
+        resultado_dificudade.innerHTML = url.difficulty
+        resultado_culinaria.innerHTML = url.cuisine
+        resultado_tempoprep.innerHTML = `${url.prepTimeMinutes}m`
+        slct_img.src = url.image
 
-    slct_ins.innerHTML += "<ul>"
-    url.instructions.forEach((ins) => {
-        slct_ins.innerHTML += `<li>> ${ins}</li>`
-    })
-    slct_ins.innerHTML += "</ul>"
+        slct_ins.innerHTML += "<ul>"
+        url.instructions.forEach((ins) => {
+            slct_ins.innerHTML += `<li>> ${ins}</li>`
+        })
+        slct_ins.innerHTML += "</ul>"
 
-    slct_ing.innerHTML += "<ul>"
-    url.ingredients.forEach((ins) => {
-        slct_ing.innerHTML += `<li>> ${ins}</li>`
-    })
-    slct_ing.innerHTML += "</ul>"
-    
-    
+        slct_ing.innerHTML += "<ul>"
+        url.ingredients.forEach((ins) => {
+            slct_ing.innerHTML += `<li>> ${ins}</li>`
+        })
+        slct_ing.innerHTML += "</ul>"
+    }
+    else
+    {
+        navegar_receitas(0)
+    }
+}
+function navegar_receitas(indice)
+{
+    if(receitas.length > 0)
+    {
+        nome_receita.innerHTML = receitas[indice].name
+        resultado_dificudade.innerHTML = receitas[indice].difficulty
+        resultado_culinaria.innerHTML = receitas[indice].cuisine
+        resultado_tempoprep.innerHTML = `${receitas[indice].prepTimeMinutes}m`
+        slct_img.src = receitas[indice].image
+
+        slct_ins.innerHTML += "<ul>"
+        receitas[indice].instructions.forEach((ins) => {
+            slct_ins.innerHTML += `<li>> ${ins}</li>`
+        })
+        slct_ins.innerHTML += "</ul>"
+
+        slct_ing.innerHTML += "<ul>"
+        receitas[indice].ingredients.forEach((ins) => {
+            slct_ing.innerHTML += `<li>> ${ins}</li>`
+        })
+        slct_ing.innerHTML += "</ul>"
+    }
 }
