@@ -7,6 +7,12 @@ const resultado_dificudade = document.getElementById("result_dificult")
 const resultado_culinaria = document.getElementById("result_culinaria")
 const resultado_tempoprep = document.getElementById("result_tempoprep")
 
+const n_resultados = document.getElementById("n_resultados") 
+const vendo_n_resultados = document.getElementById("vendo_n_resultado") 
+const btns_navegando = document.querySelectorAll(".btn_navegando")
+
+
+
 const form_resultado_ver = document.getElementById("selecionar_leitura")
 const slct_img = document.querySelector(".result_img")
 const slct_ins = document.querySelector(".result_instrucoes")
@@ -15,7 +21,37 @@ slct_img.style.top = "0%"
 slct_ins.style.top = "100%"
 slct_ing.style.top = "100%"
 
+
 let receitas = []
+let indice_receita = 0
+
+window.addEventListener("load", () => {
+    pesquisar_receita(1)
+})
+btns_navegando[0].addEventListener("click", ()=>{
+    console.log("esq")
+    console.log(receitas.length);
+    
+    
+    if(receitas.length > 0)
+    {
+        indice_receita > 0 ? indice_receita -= 1 : 0
+        navegar_receitas(indice_receita)
+    }
+    console.log(indice_receita);
+})
+btns_navegando[1].addEventListener("click", ()=>{
+    console.log("dir")
+    console.log(receitas.length);
+    
+    if(receitas.length > 0)
+    {
+        indice_receita < receitas.length-1 ? indice_receita += 1  : receitas.length-1
+        navegar_receitas(indice_receita)
+    }
+    console.log(indice_receita);
+})
+
 
 form_resultado_ver.addEventListener("change", (eve) =>{
     eve.preventDefault()
@@ -66,12 +102,26 @@ async function pesquisar_receita(pesquisa) {
     if(!isNaN(pesquisa))
     {
         url = await ( await fetch(`https://dummyjson.com/recipes/${pesquisa}`)).json()
+        // if(!url.ok)
+        // {
+        //     alert("Deu ruim :(")
+        //     return
+        // }
+        console.log(url);
+        
+        receitas = []
+        n_resultados.innerHTML = `Resultados: 1`
+        
     }
     else
     {
         url = await(await fetch(`https://dummyjson.com/recipes/search?q=${pesquisa}`)).json()
         console.log(url);
         resultados = url.total
+        n_resultados.innerHTML = `Resultados: ${resultados}`
+        receitas = []
+        indice_receita = 0
+        vendo_n_resultados.innerHTML = `Exibindo: ${indice_receita+1}°`
         url.recipes.forEach((rec,index) => {
             receitas[index] = rec
         })
@@ -99,13 +149,15 @@ async function pesquisar_receita(pesquisa) {
     }
     else
     {
-        navegar_receitas(0)
+        navegar_receitas(indice_receita)
     }
 }
 function navegar_receitas(indice)
 {
     if(receitas.length > 0)
     {
+        slct_ins.innerHTML = "<p>Instruções</p>"
+        slct_ing.innerHTML = "<p>Ingredientes</p>"
         nome_receita.innerHTML = receitas[indice].name
         resultado_dificudade.innerHTML = receitas[indice].difficulty
         resultado_culinaria.innerHTML = receitas[indice].cuisine
@@ -123,5 +175,7 @@ function navegar_receitas(indice)
             slct_ing.innerHTML += `<li>> ${ins}</li>`
         })
         slct_ing.innerHTML += "</ul>"
+
+        vendo_n_resultados.innerHTML = `Exibindo: ${indice_receita+1}°`
     }
 }
