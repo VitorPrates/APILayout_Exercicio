@@ -29,6 +29,7 @@ let indice_receita = 0
 async function testarTraducao(texto)
 {  
             //  await(await fetch(`https://dummyjson.com/recipes/${pesquisa}`)).json()
+    console.log("traduzindo...");
     const url = await(await fetch(`https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=${texto}`)).json()
     console.log(url.texto);
 }
