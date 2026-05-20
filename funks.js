@@ -1,3 +1,4 @@
+//https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=""
 
 const pesquisador = document.getElementById("pesquisador")
 const pesquisa = document.getElementById("pesquisa")
@@ -24,6 +25,11 @@ slct_ing.style.top = "100%"
 
 let receitas = []
 let indice_receita = 0
+
+function testarTraducao()
+{
+    const url = await (await fetch("https://script.google.com/macros/library/d/1ZGIe8eOsT7tH39KUepzmbwP06gQFo_EztRNNbDmP7SAnQ8Xgvl3IJULi/1")).json()
+}
 
 window.addEventListener("load", () => {
     pesquisar_receita(1)
