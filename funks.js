@@ -32,8 +32,9 @@ async function testarTraducao(texto)
     console.log("traduzindo...");
     const url = await(await fetch(`https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=${texto}`)).json()
     console.log(url.texto);
+    return url.texto
 }
-testarTraducao("Text in english")
+// testarTraducao("Text in english")
 
 window.addEventListener("load", () => {
     pesquisar_receita(1)
@@ -138,10 +139,14 @@ async function pesquisar_receita(pesquisa) {
         por_nome = true
     }
     if(por_nome == false)
-    {
-        nome_receita.innerHTML = url.name
-        resultado_dificudade.innerHTML = url.difficulty
-        resultado_culinaria.innerHTML = url.cuisine
+    { 
+        nome_receita.innerHTML = "Perai..."
+        resultado_dificudade.innerHTML = "Perai..."
+        resultado_culinaria.innerHTML = "Perai..."
+        resultado_tempoprep.innerHTML = "Perai..."
+        nome_receita.innerHTML = await testarTraducao(url.name)
+        resultado_dificudade.innerHTML = await testarTraducao(url.difficulty)
+        resultado_culinaria.innerHTML = await  testarTraducao(url.cuisine)
         resultado_tempoprep.innerHTML = `${url.prepTimeMinutes}m`
         slct_img.src = url.image
 
@@ -168,7 +173,8 @@ function navegar_receitas(indice)
     {
         slct_ins.innerHTML = "<p>Instruções</p>"
         slct_ing.innerHTML = "<p>Ingredientes</p>"
-        nome_receita.innerHTML = receitas[indice].name
+        
+        nome_receita.innerHTML = testarTraducao(receitas[indice].name)
         resultado_dificudade.innerHTML = receitas[indice].difficulty
         resultado_culinaria.innerHTML = receitas[indice].cuisine
         resultado_tempoprep.innerHTML = `${receitas[indice].prepTimeMinutes}m`
