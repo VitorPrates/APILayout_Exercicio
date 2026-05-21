@@ -145,20 +145,39 @@ async function pesquisar_receita(pesquisa) {
         resultado_dificudade.innerHTML = "Perai..."
         resultado_culinaria.innerHTML = "Perai..."
         resultado_tempoprep.innerHTML = "Perai..."
-        nome_receita.innerHTML = await testarTraducao(url.name)
-        resultado_dificudade.innerHTML = await testarTraducao(url.difficulty)
-        resultado_culinaria.innerHTML = await  testarTraducao(url.cuisine)
-        resultado_tempoprep.innerHTML = `${url.prepTimeMinutes}m`
+        slct_ins.innerHTML = `<p>Instruções</p><p>>Buscando...</p>`
+        slct_ing.innerHTML = `<p>Ingredientes</p><p>>Buscando...</p>`
         slct_img.src = url.image
+        const textos = [
+        url.name,
+        url.difficulty,
+        url.cuisine,
+        ].join("%0A");
+
+        const infos_resultado = await testarTraducao(textos);
+
+        nome_receita.innerHTML = infos_resultado[0]
+        resultado_dificudade.innerHTML = infos_resultado[1]
+        resultado_culinaria.innerHTML = infos_resultado[2]
+        resultado_tempoprep.innerHTML = `${url.prepTimeMinutes}m`
+        
+
+
+        
+        const instrucoes_traduzidas = await testarTraducao(url.instructions.join("%0A"))
+        const ingredientes_traduzidos = await testarTraducao(url.ingredients.join("%0A"))
+        slct_ins.innerHTML = `<p>Instruções</p>`
+        slct_ing.innerHTML = `<p>Ingredientes</p>`
+
 
         slct_ins.innerHTML += "<ul>"
-        url.instructions.forEach((ins) => {
+        instrucoes_traduzidas.forEach((ins) => {
             slct_ins.innerHTML += `<li>> ${ins}</li>`
         })
         slct_ins.innerHTML += "</ul>"
 
         slct_ing.innerHTML += "<ul>"
-        url.ingredients.forEach((ins) => {
+        ingredientes_traduzidos.forEach((ins) => {
             slct_ing.innerHTML += `<li>> ${ins}</li>`
         })
         slct_ing.innerHTML += "</ul>"
