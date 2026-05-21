@@ -1,4 +1,5 @@
 //https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=""
+// https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=hello%20world%0Aeasy%0Aitalian%20cuisine
 
 const pesquisador = document.getElementById("pesquisador")
 const pesquisa = document.getElementById("pesquisa")
