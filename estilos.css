@@ -75,8 +75,9 @@ header nav input {
   padding: 0 10px;
 }
 header nav input:focus {
-  border: none;
   outline: none;
+  border-radius: 10px;
+  border-bottom: 4px solid brown;
 }
 header nav button {
   padding: 0 10px;

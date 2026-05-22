@@ -86,8 +86,10 @@ header
         }
         input:focus
         {
-            border: none;
+            // border: none;
             outline: none;
+            border-radius: 10px;
+            border-bottom: 4px solid brown;
         }
         button
         {
