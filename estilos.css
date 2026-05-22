@@ -30,20 +30,41 @@ header {
   align-items: center;
   padding: 20px 40px;
   background-color: var(--cor_clara);
+  background-color: bisque;
+  border-top: 4px solid brown;
   flex-grow: 1;
 }
-header h1 {
+header .logo_header {
   font-weight: 100;
   background-color: var(--cor_escura);
+  background-color: white;
+  border-radius: 10px;
+  border-bottom: 4px solid brown;
   width: 25%;
+  max-width: 220px;
   text-align: center;
   font-size: 2em;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: 100%;
+}
+header .logo_header .img_logo {
+  width: 100%;
+  height: 100%;
+  max-width: 55px;
+  background-image: url("imglogo.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: -5px -7px;
 }
 header nav input, header nav button {
   background-color: var(--cor_escura);
   border: none;
   text-align: center;
   font-size: 2em;
+  background-color: white;
+  border-radius: 10px;
+  border-bottom: 4px solid brown;
 }
 header nav input {
   margin: 0 45px 0 0;
@@ -51,14 +72,14 @@ header nav input {
   background-color: white;
   color: black;
   border-radius: 10px;
-  padding: 0 5px;
+  padding: 0 10px;
 }
 header nav input:focus {
   border: none;
   outline: none;
 }
 header nav button {
-  padding: 0 5px;
+  padding: 0 10px;
 }
 
 section {
@@ -66,10 +87,18 @@ section {
   justify-content: center;
   align-items: center;
   flex-grow: 5;
+  background-color: bisque;
+  border-top: 5px solid brown;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 5px solid brown;
 }
 section h1 {
   font-weight: 100;
   background-color: var(--cor_escura);
+  background-color: white;
+  border-radius: 10px;
+  border-bottom: 4px solid brown;
   text-align: center;
   font-size: 2em;
   padding: 0 30px;
@@ -82,6 +111,7 @@ main {
   justify-content: center;
   align-items: start;
   gap: 50px;
+  background-color: bisque;
 }
 main #resultado_img {
   background-color: var(--cor_escura);
@@ -129,6 +159,9 @@ main #resultado_infos {
 main #resultado_infos p {
   width: 100%;
   background-color: var(--cor_escura);
+  background-color: white;
+  border-radius: 10px;
+  border-bottom: 3px solid brown;
   font-size: 2em;
   text-align: center;
   margin-bottom: 20px;
@@ -146,9 +179,14 @@ main #resultado_infos .btns_result {
 }
 main #resultado_infos .btns_result button {
   background-color: var(--cor_escura);
+  background-color: burlywood;
+  border-radius: 50px;
   font-size: 1.5em;
   border: none;
   padding: 10px;
   cursor: pointer;
   transition: 0.1s ease-in-out;
+}
+main #resultado_infos span {
+  text-align: center;
 }/*# sourceMappingURL=estilos.css.map */

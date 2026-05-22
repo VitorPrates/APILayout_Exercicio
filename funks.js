@@ -43,8 +43,6 @@ window.addEventListener("load", () => {
 btns_navegando[0].addEventListener("click", ()=>{
     console.log("esq")
     console.log(receitas.length);
-    
-    
     if(receitas.length > 0)
     {
         indice_receita > 0 ? indice_receita -= 1 : 0
@@ -101,6 +99,7 @@ form_resultado_ver.addEventListener("change", (eve) =>{
 
 pesquisador.addEventListener('submit',(eve)=>{
     eve.preventDefault()
+    slct_img.src = "gifcarregando.gif"
     pesquisar_receita(pesquisa.value)
     console.log();
 })
@@ -111,6 +110,12 @@ async function pesquisar_receita(pesquisa) {
     let por_nome = false
     let resultados = 0
     let url = ""
+    if(pesquisa == "")
+    {
+        alert("Insira um valor válido")
+        return
+    }
+   
     if(!isNaN(pesquisa))
     {
         url = await ( await fetch(`https://dummyjson.com/recipes/${pesquisa}`)).json()
@@ -160,9 +165,6 @@ async function pesquisar_receita(pesquisa) {
         resultado_dificudade.innerHTML = infos_resultado[1]
         resultado_culinaria.innerHTML = infos_resultado[2]
         resultado_tempoprep.innerHTML = `${url.prepTimeMinutes}m`
-        
-
-
         
         const instrucoes_traduzidas = await testarTraducao(url.instructions.join("%0A"))
         const ingredientes_traduzidos = await testarTraducao(url.ingredients.join("%0A"))
