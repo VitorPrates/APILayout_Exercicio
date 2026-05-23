@@ -1,6 +1,13 @@
 //https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=""
 // https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=hello%20world%0Aeasy%0Aitalian%20cuisine
 
+//tags da api
+// https://dummyjson.com/recipes/tags
+
+//buscar por tag
+//https://dummyjson.com/recipes/tag/tag
+
+
 const pesquisador = document.getElementById("pesquisador")
 const pesquisa = document.getElementById("pesquisa")
 const nome_receita = document.getElementById("nome_receita")
@@ -12,8 +19,6 @@ const resultado_tempoprep = document.getElementById("result_tempoprep")
 const n_resultados = document.getElementById("n_resultados") 
 const vendo_n_resultados = document.getElementById("vendo_n_resultado") 
 const btns_navegando = document.querySelectorAll(".btn_navegando")
-
-
 
 const form_resultado_ver = document.getElementById("selecionar_leitura")
 const slct_img = document.querySelector(".result_img")
@@ -28,11 +33,22 @@ let receitas = []
 let indice_receita = 0
 
 async function testarTraducao(texto)
-{  
-            //  await(await fetch(`https://dummyjson.com/recipes/${pesquisa}`)).json()
-    console.log("traduzindo...");
-    const url = await(await fetch(`https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=${texto}`)).json()
-    // console.log(url.texto);
+{   
+    let url = ""
+    // try {
+    //     url = await(await fetch(`https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=${texto}`)).json()
+    //     if(url.erro)
+    //     {
+    //         throw new Error("Falha na api de tradução")
+    //     }
+    // } catch (error) {
+    //     console.log(error.message);
+    //     url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
+    // }   
+    url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
+
+    // console.log(url);
+
     return url.texto
 }
 // testarTraducao("Text in english")
@@ -41,9 +57,6 @@ window.addEventListener("load", () => {
     pesquisar_receita(1)
 })
 btns_navegando[0].addEventListener("click", ()=>{
-    console.log("esq")
-    console.log(receitas.length);
-    console.log(indice_receita);
     if(receitas.length > 0)
     {
         if(indice_receita == 0)
@@ -51,14 +64,31 @@ btns_navegando[0].addEventListener("click", ()=>{
             return
         }
         indice_receita > 0 ? indice_receita -= 1 : 0
+        vendo_n_resultados.innerHTML = `Exibindo: ${indice_receita+1}°`
+        nome_receita.innerHTML = "Buscando..."
+        resultado_dificudade.innerHTML = "Buscando..."
+        resultado_culinaria.innerHTML = "Buscando..."
+        resultado_tempoprep.innerHTML = "Buscando..."
+        slct_ins.innerHTML = `<p>Instruções</p><p>>Buscando...</p>`
+        slct_ing.innerHTML = `<p>Ingredientes</p><p>>Buscando...</p>`
         navegar_receitas(indice_receita)
+    }
+    else
+    {
+        if(!isNaN(pesquisa.value))
+        {
+            indice_receita = pesquisa.value
+            if(indice_receita == 0)
+            {
+                return
+            }
+            indice_receita > 0 ? indice_receita -= 1 : 0
+            pesquisar_receita(indice_receita)
+        }
     }
     
 })
 btns_navegando[1].addEventListener("click", ()=>{
-    console.log("dir")
-    console.log(receitas.length);
-    console.log(indice_receita);
     if(receitas.length > 0)
     {
         if(indice_receita == receitas.length-1)
@@ -66,7 +96,26 @@ btns_navegando[1].addEventListener("click", ()=>{
             return
         }
         indice_receita < receitas.length-1 ? indice_receita += 1  : receitas.length-1
+        vendo_n_resultados.innerHTML = `Exibindo: ${indice_receita+1}°`
+        nome_receita.innerHTML = "Buscando..."
+        resultado_dificudade.innerHTML = "Buscando..."
+        resultado_culinaria.innerHTML = "Buscando..."
+        resultado_tempoprep.innerHTML = "Buscando..."
+        slct_ins.innerHTML = `<p>Instruções</p><p>>Buscando...</p>`
+        slct_ing.innerHTML = `<p>Ingredientes</p><p>>Buscando...</p>`
         navegar_receitas(indice_receita)
+    }
+    else
+    {
+        if(!isNaN(pesquisa.value))
+        {
+            console.log("n eh num");
+            console.log(pesquisa.value);
+            indice_receita = +pesquisa.value
+            indice_receita < 50 ? indice_receita += 1  : 50
+            pesquisa.value = indice_receita
+            pesquisar_receita(indice_receita)
+        }
     }
     console.log(indice_receita);
 })
@@ -109,6 +158,12 @@ form_resultado_ver.addEventListener("change", (eve) =>{
 pesquisador.addEventListener('submit',(eve)=>{
     eve.preventDefault()
     slct_img.src = "gifcarregando.gif"
+    nome_receita.innerHTML = "Buscando..."
+    resultado_dificudade.innerHTML = "Buscando..."
+    resultado_culinaria.innerHTML = "Buscando..."
+    resultado_tempoprep.innerHTML = "Buscando..."
+    slct_ins.innerHTML = `<p>Instruções</p><p>>Buscando...</p>`
+    slct_ing.innerHTML = `<p>Ingredientes</p><p>>Buscando...</p>`
     pesquisar_receita(pesquisa.value)
     console.log();
 })
@@ -125,25 +180,44 @@ async function pesquisar_receita(pesquisa) {
         return
     }
    
+    //se for uma pesquisa por ID
     if(!isNaN(pesquisa))
     {
-        url = await ( await fetch(`https://dummyjson.com/recipes/${pesquisa}`)).json()
-        // if(!url.ok)
-        // {
-        //     alert("Deu ruim :(")
-        //     return
-        // }
-        // console.log(url);
-        
+        try {
+            url = await ( await fetch(`https://dummyjson.com/recipes/${pesquisa}?limit=50`)).json()
+            if(url.message)
+            {
+                throw new Error("Receita não encontrada")
+            }
+        } catch (error) {
+            console.log(error.message);
+            nome_receita.innerHTML = "Receita não encontrada"
+            resultado_dificudade.innerHTML = "-"
+            resultado_culinaria.innerHTML = "-"
+            resultado_tempoprep.innerHTML = "-"
+            return
+        }
         receitas = []
         n_resultados.innerHTML = `Resultados: 1`
-        
     }
+    //se for uma pesquisa por nome
     else
     {
-        url = await(await fetch(`https://dummyjson.com/recipes/search?q=${pesquisa}`)).json()
-        console.log(url);
-        resultados = url.total
+        try {
+            url = await(await fetch(`https://dummyjson.com/recipes/search?q=${pesquisa}&delay=2500`)).json()
+            resultados = url.total
+            if (resultados == 0)
+            {
+                throw new Error("Nenhuma receita encontrada")
+            }
+        } catch (error) {
+            console.log(error.message);
+            nome_receita.innerHTML = `nenhuma receita com "${pesquisa}" encontrada`
+            resultado_dificudade.innerHTML = "-"
+            resultado_culinaria.innerHTML = "-"
+            resultado_tempoprep.innerHTML = "-"
+        }
+
         n_resultados.innerHTML = `Resultados: ${resultados}`
         receitas = []
         indice_receita = 0
@@ -155,10 +229,10 @@ async function pesquisar_receita(pesquisa) {
     }
     if(por_nome == false)
     { 
-        nome_receita.innerHTML = "Perai..."
-        resultado_dificudade.innerHTML = "Perai..."
-        resultado_culinaria.innerHTML = "Perai..."
-        resultado_tempoprep.innerHTML = "Perai..."
+        nome_receita.innerHTML = "Buscando..."
+        resultado_dificudade.innerHTML = "Buscando..."
+        resultado_culinaria.innerHTML = "Buscando..."
+        resultado_tempoprep.innerHTML = "Buscando..."
         slct_ins.innerHTML = `<p>Instruções</p><p>>Buscando...</p>`
         slct_ing.innerHTML = `<p>Ingredientes</p><p>>Buscando...</p>`
         slct_img.src = url.image
@@ -221,7 +295,6 @@ async function navegar_receitas(indice)
         resultado_tempoprep.innerHTML = `${receitas[indice].prepTimeMinutes}m`
 
         const instrucoes_traduzidas = await testarTraducao(receitas[indice].instructions.join("%0A"))
-        console.log(instrucoes_traduzidas);
         const ingredientes_traduzidos = await testarTraducao(receitas[indice].ingredients.join("%0A"))
 
         slct_ins.innerHTML = "<p>Instruções</p>"
