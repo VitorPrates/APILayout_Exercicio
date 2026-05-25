@@ -35,17 +35,17 @@ let indice_receita = 0
 async function testarTraducao(texto)
 {   
     let url = ""
-    try {
-        url = await(await fetch(`https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=${texto}`)).json()
-        if(url.erro)
-        {
-            throw new Error("Falha na api de tradução")
-        }
-    } catch (error) {
-        console.log(error.message);
-        url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
-    }   
-    // url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
+    // try {
+    //     url = await(await fetch(`https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=${texto}`)).json()
+    //     if(url.erro)
+    //     {
+    //         throw new Error("Falha na api de tradução")
+    //     }
+    // } catch (error) {
+    //     console.log(error.message);
+    //     url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
+    // }   
+    url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
 
     // console.log(url);
 
@@ -252,18 +252,24 @@ async function pesquisar_receita(pesquisa) {
         slct_ins.innerHTML = `<p>Instruções</p>`
         slct_ing.innerHTML = `<p>Ingredientes</p>`
 
+        const lista_instrucoes = document.createElement("ul")
+        const lista_ingredientes = document.createElement("ul")
 
-        slct_ins.innerHTML += "<ul>"
-        instrucoes_traduzidas.forEach((ins) => {
-            slct_ins.innerHTML += `<li>> ${ins}</li>`
+        instrucoes_traduzidas.forEach((ins,num) => {
+            // slct_ins.innerHTML += `<li>> ${ins}</li>`
+            const item_lista_instrucoes = document.createElement("li")
+            item_lista_instrucoes.innerHTML = `${num+1}. ${ins}`
+            lista_instrucoes.appendChild(item_lista_instrucoes)
         })
-        slct_ins.innerHTML += "</ul>"
+        slct_ins.appendChild(lista_instrucoes)
+        
+        ingredientes_traduzidos.forEach((ing) => {
+            const item_lista_ingredientes = document.createElement("li")
+            item_lista_ingredientes.innerHTML = `> ${ing}`
+            lista_ingredientes.appendChild(item_lista_ingredientes)
+        })
+        slct_ing.appendChild(lista_ingredientes)
 
-        slct_ing.innerHTML += "<ul>"
-        ingredientes_traduzidos.forEach((ins) => {
-            slct_ing.innerHTML += `<li>> ${ins}</li>`
-        })
-        slct_ing.innerHTML += "</ul>"
     }
     else
     {
@@ -298,17 +304,23 @@ async function navegar_receitas(indice)
         slct_ins.innerHTML = "<p>Instruções</p>"
         slct_ing.innerHTML = "<p>Ingredientes</p>"
 
-        slct_ins.innerHTML += "<ul>"
-        instrucoes_traduzidas.forEach((ins) => {
-            slct_ins.innerHTML += `<li>> ${ins}</li>`
-        })
-        slct_ins.innerHTML += "</ul>"
+        const lista_instrucoes = document.createElement("ul")
+        const lista_ingredientes = document.createElement("ul")
 
-        slct_ing.innerHTML += "<ul>"
-        ingredientes_traduzidos.forEach((ins) => {
-            slct_ing.innerHTML += `<li>> ${ins}</li>`
+        instrucoes_traduzidas.forEach((ins,num) => {
+            // slct_ins.innerHTML += `<li>> ${ins}</li>`
+            const item_lista_instrucoes = document.createElement("li")
+            item_lista_instrucoes.innerHTML = `${num+1}. ${ins}`
+            lista_instrucoes.appendChild(item_lista_instrucoes)
         })
-        slct_ing.innerHTML += "</ul>"
+        slct_ins.appendChild(lista_instrucoes)
+        
+        ingredientes_traduzidos.forEach((ing) => {
+            const item_lista_ingredientes = document.createElement("li")
+            item_lista_ingredientes.innerHTML = `> ${ing}`
+            lista_ingredientes.appendChild(item_lista_ingredientes)
+        })
+        slct_ing.appendChild(lista_ingredientes)
 
         vendo_n_resultados.innerHTML = `Exibindo: ${indice_receita+1}°`
     }

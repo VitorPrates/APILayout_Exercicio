@@ -139,17 +139,37 @@ main #resultado_img .result_img, main #resultado_img .result_instrucoes, main #r
   height: 100%;
   transition: 0.5s ease-in-out;
   z-index: 3;
+}
+main #resultado_img .result_img p, main #resultado_img .result_instrucoes p, main #resultado_img .result_ingredientes p {
+  text-align: center;
+  padding: 5px 0px;
+  border-bottom: 1px solid black;
+}
+main #resultado_img .result_img ul, main #resultado_img .result_instrucoes ul, main #resultado_img .result_ingredientes ul {
   overflow-y: scroll;
+  height: -moz-fit-content;
+  height: fit-content;
+  height: calc(100% - 30px);
+  padding: 0 10px;
+}
+main #resultado_img .result_img ul li, main #resultado_img .result_instrucoes ul li, main #resultado_img .result_ingredientes ul li {
+  margin: 10px 0px;
+  border: 1px solid;
+  padding: 10px;
+  transition: 0.2s ease-in-out;
+  cursor: default;
+}
+main #resultado_img .result_img ul li:hover, main #resultado_img .result_instrucoes ul li:hover, main #resultado_img .result_ingredientes ul li:hover {
+  background-color: black;
+  color: white;
 }
 main #resultado_img .result_instrucoes {
-  width: calc(100% - 30px);
-  padding: 30px;
+  width: 100%;
   z-index: 2;
   list-style: none;
 }
 main #resultado_img .result_ingredientes {
-  width: calc(100% - 30px);
-  padding: 30px;
+  width: 100%;
   z-index: 1;
   list-style: none;
 }
