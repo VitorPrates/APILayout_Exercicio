@@ -48,11 +48,15 @@ header .logo_header {
   grid-template-columns: 75% 25%;
   grid-template-rows: 100%;
 }
+header .logo_header h1 {
+  font-size: 1em;
+  font-weight: bold;
+}
 header .logo_header .img_logo {
   width: 100%;
   height: 100%;
   max-width: 55px;
-  background-image: url("imglogo.png");
+  background-image: url("/assets/imglogo.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: -5px -7px;
@@ -94,7 +98,7 @@ section {
   border-right: 0;
   border-bottom: 5px solid brown;
 }
-section h1 {
+section h2 {
   font-weight: 100;
   background-color: var(--cor_escura);
   background-color: white;
@@ -159,7 +163,6 @@ main #resultado_infos {
 }
 main #resultado_infos p {
   width: 100%;
-  background-color: var(--cor_escura);
   background-color: white;
   border-radius: 10px;
   border-bottom: 3px solid brown;
@@ -179,7 +182,6 @@ main #resultado_infos .btns_result {
   justify-content: space-between;
 }
 main #resultado_infos .btns_result button {
-  background-color: var(--cor_escura);
   background-color: burlywood;
   border-radius: 50px;
   font-size: 1.5em;

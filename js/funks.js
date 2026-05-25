@@ -77,12 +77,9 @@ btns_navegando[0].addEventListener("click", ()=>{
     {
         if(!isNaN(pesquisa.value))
         {
-            indice_receita = pesquisa.value
-            if(indice_receita == 0)
-            {
-                return
-            }
-            indice_receita > 0 ? indice_receita -= 1 : 0
+            indice_receita = +pesquisa.value
+            indice_receita > 1 ? indice_receita -= 1 : 1
+            pesquisa.value = indice_receita
             pesquisar_receita(indice_receita)
         }
     }
@@ -109,15 +106,16 @@ btns_navegando[1].addEventListener("click", ()=>{
     {
         if(!isNaN(pesquisa.value))
         {
-            console.log("n eh num");
-            console.log(pesquisa.value);
+            // console.log("n eh num");
+            // console.log(pesquisa.value);
             indice_receita = +pesquisa.value
-            indice_receita < 50 ? indice_receita += 1  : 50
+            // indice_receita < 50 ? indice_receita += 1  : 50
+            indice_receita += 1
             pesquisa.value = indice_receita
             pesquisar_receita(indice_receita)
         }
     }
-    console.log(indice_receita);
+    // console.log(indice_receita);
 })
 
 
@@ -157,7 +155,7 @@ form_resultado_ver.addEventListener("change", (eve) =>{
 
 pesquisador.addEventListener('submit',(eve)=>{
     eve.preventDefault()
-    slct_img.src = "gifcarregando.gif"
+    slct_img.src = "./assets/gifcarregando.gif"
     nome_receita.innerHTML = "Buscando..."
     resultado_dificudade.innerHTML = "Buscando..."
     resultado_culinaria.innerHTML = "Buscando..."
@@ -176,7 +174,6 @@ async function pesquisar_receita(pesquisa) {
     let url = ""
     if(pesquisa == "")
     {
-        alert("Insira um valor válido")
         return
     }
    
@@ -191,6 +188,7 @@ async function pesquisar_receita(pesquisa) {
             }
         } catch (error) {
             console.log(error.message);
+            slct_img.src = "./assets/gifcarregando.gif"
             nome_receita.innerHTML = "Receita não encontrada"
             resultado_dificudade.innerHTML = "-"
             resultado_culinaria.innerHTML = "-"
@@ -274,7 +272,7 @@ async function pesquisar_receita(pesquisa) {
 }
 async function navegar_receitas(indice)
 {
-    slct_img.src = "gifcarregando.gif"
+    slct_img.src = "./assets/gifcarregando.gif"
     if(receitas.length > 0)
     {
         slct_ins.innerHTML = `<p>Instruções</p><p>>Buscando...</p>`
