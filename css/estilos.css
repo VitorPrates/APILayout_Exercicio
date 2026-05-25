@@ -4,6 +4,7 @@
   text-decoration: none;
   box-sizing: none;
   font-family: "Courier New", Courier, monospace;
+  cursor: default;
 }
 
 :root {
@@ -47,6 +48,7 @@ header .logo_header {
   display: grid;
   grid-template-columns: 75% 25%;
   grid-template-rows: 100%;
+  cursor: default;
 }
 header .logo_header h1 {
   font-size: 1em;
@@ -60,6 +62,9 @@ header .logo_header .img_logo {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: -5px -7px;
+}
+header nav #pesquisador {
+  display: flex;
 }
 header nav input, header nav button {
   background-color: var(--cor_escura);
@@ -85,6 +90,12 @@ header nav input:focus {
 }
 header nav button {
   padding: 0 10px;
+}
+header nav .pesquisa_pc {
+  display: block;
+}
+header nav .pesquisa_cel {
+  display: none;
 }
 
 section {
@@ -117,11 +128,13 @@ main {
   align-items: start;
   gap: 50px;
   background-color: bisque;
+  flex-flow: wrap;
+  overflow-y: scroll;
 }
 main #resultado_img {
   background-color: var(--cor_escura);
   height: 90%;
-  width: 50%;
+  width: 100%;
   max-width: 500px;
   max-height: 500px;
   display: flex;
@@ -157,11 +170,19 @@ main #resultado_img .result_img ul li, main #resultado_img .result_instrucoes ul
   border: 1px solid;
   padding: 10px;
   transition: 0.2s ease-in-out;
-  cursor: default;
+  cursor: pointer;
 }
 main #resultado_img .result_img ul li:hover, main #resultado_img .result_instrucoes ul li:hover, main #resultado_img .result_ingredientes ul li:hover {
-  background-color: black;
+  background-color: brown;
   color: white;
+}
+main #resultado_img .result_img ul .ing_ok, main #resultado_img .result_instrucoes ul .ing_ok, main #resultado_img .result_ingredientes ul .ing_ok {
+  background-color: bisque;
+  color: brown;
+}
+main #resultado_img .result_img ul .ing_ok:hover, main #resultado_img .result_instrucoes ul .ing_ok:hover, main #resultado_img .result_ingredientes ul .ing_ok:hover {
+  background-color: bisque;
+  color: black;
 }
 main #resultado_img .result_instrucoes {
   width: 100%;
@@ -183,6 +204,9 @@ main #resultado_infos {
 }
 main #resultado_infos p {
   width: 100%;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  padding: 0 5px;
   background-color: white;
   border-radius: 10px;
   border-bottom: 3px solid brown;
@@ -196,6 +220,12 @@ main #resultado_infos #selecionar_leitura {
   align-items: center;
   flex-flow: column-reverse;
   gap: 10px;
+}
+main #resultado_infos #selecionar_leitura input {
+  cursor: pointer;
+  accent-color: brown;
+  outline: none;
+  border: none;
 }
 main #resultado_infos .btns_result {
   display: flex;
@@ -212,4 +242,43 @@ main #resultado_infos .btns_result button {
 }
 main #resultado_infos span {
   text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: column;
+    padding: 10px 0;
+  }
+  header .logo_header {
+    width: 100%;
+  }
+  header nav {
+    margin-top: 10px;
+    width: 100%;
+  }
+  header #pesquisador {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  header #pesquisador input {
+    font-size: 1.5em;
+  }
+  header #pesquisador .pesquisa_pc {
+    display: none;
+  }
+  header #pesquisador .pesquisa_cel {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  header #pesquisador .pesquisa_cel svg {
+    width: 50%;
+  }
+  section {
+    min-height: 100px;
+  }
 }/*# sourceMappingURL=estilos.css.map */

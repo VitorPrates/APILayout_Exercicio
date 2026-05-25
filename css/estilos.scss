@@ -5,6 +5,7 @@
     text-decoration: none;
     box-sizing: none;
     font-family: 'Courier New', Courier, monospace;
+    cursor: default;
 }
 :root
 {
@@ -50,6 +51,7 @@ header
         display: grid;
         grid-template-columns: 75% 25%;
         grid-template-rows: 100%;
+        cursor: default;
         h1
         {
             font-size: 1em;
@@ -69,13 +71,16 @@ header
     }
     nav
     {
+        #pesquisador
+        {
+            display: flex;
+        }
         input,button
         {
             background-color: var(--cor_escura);
             border: none;
             text-align: center;
             font-size: 2em;
-            
             background-color: white;
             border-radius: 10px;
             border-bottom: 4px solid brown;
@@ -99,6 +104,14 @@ header
         button
         {
             padding: 0 10px;
+        }
+        .pesquisa_pc
+        {
+            display: block;
+        }
+        .pesquisa_cel
+        {
+            display: none;
         }
     }
 }
@@ -136,11 +149,13 @@ main
     align-items: start;
     gap: 50px;
     background-color: bisque;
+    flex-flow: wrap;
+    overflow-y: scroll;
     #resultado_img
     {
         background-color: var(--cor_escura);
         height: 90%;
-        width: 50%;
+        width: 100%;
         max-width: 500px;
         max-height: 500px;
         display: flex;
@@ -176,12 +191,23 @@ main
                     border: 1px solid;
                     padding: 10px;
                     transition: 0.2s ease-in-out;
-                    cursor: default;
+                    cursor: pointer;
                 }
                 li:hover
                 {
-                    background-color: black;
+                    background-color: brown;
                     color: white;
+                }
+                .ing_ok
+                {
+                    background-color: bisque;
+                    color: brown;
+                    
+                }
+                .ing_ok:hover
+                {
+                    background-color: bisque;
+                    color: black;
                 }
             }
         }
@@ -212,6 +238,8 @@ main
         p
         {
             width: 100%;
+            min-width: fit-content;
+            padding: 0 5px ;
             // background-color: var(--cor_escura);
             background-color: white;
             border-radius: 10px;
@@ -227,6 +255,15 @@ main
             align-items: center;
             flex-flow: column-reverse;
             gap: 10px;
+            input
+            {
+               cursor: pointer;
+               accent-color: brown;
+               outline: none;
+               border: none;
+            //    width: 25px;
+            //    height: 20px;
+            }
         }
         .btns_result
         {
@@ -254,4 +291,57 @@ main
         }
 
     }
+}
+
+@media screen and (max-width: 600px) {
+  header
+  {
+    flex-direction: column;
+    padding: 10px 0;
+    .logo_header
+    {
+        width: 100%;
+    }
+    nav
+    {
+        margin-top: 10px;
+        width: 100%;
+    }
+    #pesquisador
+    {
+        // background-color: red;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        input
+        {
+            font-size: 1.5em;
+        }
+        .pesquisa_pc
+        {
+            display: none;
+        }
+        .pesquisa_cel
+        {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            svg
+            {
+                width: 50%
+            }
+        }
+    }
+  }
+  section
+  {
+    min-height: 100px;
+  }
+  main
+  {
+    
+  }
 }

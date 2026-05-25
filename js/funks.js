@@ -7,7 +7,6 @@
 //buscar por tag
 //https://dummyjson.com/recipes/tag/tag
 
-
 const pesquisador = document.getElementById("pesquisador")
 const pesquisa = document.getElementById("pesquisa")
 const nome_receita = document.getElementById("nome_receita")
@@ -24,10 +23,10 @@ const form_resultado_ver = document.getElementById("selecionar_leitura")
 const slct_img = document.querySelector(".result_img")
 const slct_ins = document.querySelector(".result_instrucoes")
 const slct_ing = document.querySelector(".result_ingredientes")
+
 slct_img.style.top = "0%"
 slct_ins.style.top = "100%"
 slct_ing.style.top = "100%"
-
 
 let receitas = []
 let indice_receita = 0
@@ -35,17 +34,17 @@ let indice_receita = 0
 async function testarTraducao(texto)
 {   
     let url = ""
-    try {
-        url = await(await fetch(`https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=${texto}`)).json()
-        if(url.erro)
-        {
-            throw new Error("Falha na api de tradução")
-        }
-    } catch (error) {
-        console.log(error.message);
-        url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
-    }   
-    // url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
+    // try {
+    //     url = await(await fetch(`https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=${texto}`)).json()
+    //     if(url.erro)
+    //     {
+    //         throw new Error("Falha na api de tradução")
+    //     }
+    // } catch (error) {
+    //     console.log(error.message);
+    //     url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
+    // }   
+    url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
 
     // console.log(url);
 
@@ -106,8 +105,6 @@ btns_navegando[1].addEventListener("click", ()=>{
     {
         if(!isNaN(pesquisa.value))
         {
-            // console.log("n eh num");
-            // console.log(pesquisa.value);
             indice_receita = +pesquisa.value
             // indice_receita < 50 ? indice_receita += 1  : 50
             indice_receita += 1
@@ -115,7 +112,6 @@ btns_navegando[1].addEventListener("click", ()=>{
             pesquisar_receita(indice_receita)
         }
     }
-    // console.log(indice_receita);
 })
 
 
@@ -186,10 +182,14 @@ async function pesquisar_receita(pesquisa) {
             {
                 throw new Error("Receita não encontrada")
             }
+            if(navigator.offLine)
+            {
+                throw new Error("Receita não encontrada")
+            }
         } catch (error) {
             console.log(error.message);
             slct_img.src = "./assets/gifcarregando.gif"
-            nome_receita.innerHTML = "Receita não encontrada"
+            nome_receita.innerHTML = "Falha na pesquisa"
             resultado_dificudade.innerHTML = "-"
             resultado_culinaria.innerHTML = "-"
             resultado_tempoprep.innerHTML = "-"
@@ -259,6 +259,9 @@ async function pesquisar_receita(pesquisa) {
             // slct_ins.innerHTML += `<li>> ${ins}</li>`
             const item_lista_instrucoes = document.createElement("li")
             item_lista_instrucoes.innerHTML = `${num+1}. ${ins}`
+            item_lista_instrucoes.addEventListener("click", ()=>{
+                item_lista_instrucoes.classList.toggle("ing_ok")
+            })
             lista_instrucoes.appendChild(item_lista_instrucoes)
         })
         slct_ins.appendChild(lista_instrucoes)
@@ -266,6 +269,9 @@ async function pesquisar_receita(pesquisa) {
         ingredientes_traduzidos.forEach((ing) => {
             const item_lista_ingredientes = document.createElement("li")
             item_lista_ingredientes.innerHTML = `> ${ing}`
+            item_lista_ingredientes.addEventListener("click", ()=>{
+                item_lista_ingredientes.classList.toggle("ing_ok")
+            })
             lista_ingredientes.appendChild(item_lista_ingredientes)
         })
         slct_ing.appendChild(lista_ingredientes)
