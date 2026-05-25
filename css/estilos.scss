@@ -150,7 +150,7 @@ main
     gap: 50px;
     background-color: bisque;
     flex-flow: wrap;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     #resultado_img
     {
         background-color: var(--cor_escura);
@@ -239,7 +239,7 @@ main
         {
             width: 100%;
             min-width: fit-content;
-            padding: 0 5px ;
+            padding: 0 5px;
             // background-color: var(--cor_escura);
             background-color: white;
             border-radius: 10px;
@@ -292,7 +292,12 @@ main
 
     }
 }
-
+@media screen and (max-width: 1000px){
+    main
+    {
+        overflow-y: scroll;
+    }
+}
 @media screen and (max-width: 600px) {
   header
   {
@@ -340,8 +345,5 @@ main
   {
     min-height: 100px;
   }
-  main
-  {
-    
-  }
+ 
 }

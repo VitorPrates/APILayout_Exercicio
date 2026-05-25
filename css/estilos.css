@@ -129,7 +129,6 @@ main {
   gap: 50px;
   background-color: bisque;
   flex-flow: wrap;
-  overflow-y: scroll;
 }
 main #resultado_img {
   background-color: var(--cor_escura);
@@ -244,6 +243,11 @@ main #resultado_infos span {
   text-align: center;
 }
 
+@media screen and (max-width: 1000px) {
+  main {
+    overflow-y: scroll;
+  }
+}
 @media screen and (max-width: 600px) {
   header {
     flex-direction: column;
