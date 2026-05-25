@@ -35,17 +35,17 @@ let indice_receita = 0
 async function testarTraducao(texto)
 {   
     let url = ""
-    // try {
-    //     url = await(await fetch(`https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=${texto}`)).json()
-    //     if(url.erro)
-    //     {
-    //         throw new Error("Falha na api de tradução")
-    //     }
-    // } catch (error) {
-    //     console.log(error.message);
-    //     url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
-    // }   
-    url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
+    try {
+        url = await(await fetch(`https://script.google.com/macros/s/AKfycbxTd4-v2GV2i5Tsk9ZiNwFzp1D80ND4qtX1UDzU4B3zXKEaPZFDgZYzdWwnXtUTwLo/exec?text=${texto}`)).json()
+        if(url.erro)
+        {
+            throw new Error("Falha na api de tradução")
+        }
+    } catch (error) {
+        console.log(error.message);
+        url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
+    }   
+    // url = {texto: texto.split("%0A").map(t => t.trim()).filter(t => t !== "")}
 
     // console.log(url);
 
